@@ -12,11 +12,14 @@ public class clustering extends PApplet {
 
     public void setup(){
         size(800,800);
+        noStroke();
+        smooth();
     }
     public void draw(){
         background(255);
         for(GroupedVector point: listOfPoints){
-            fill((currentGroup+1)*40);
+            fill(0);
+            text(point.group, point.x, point.y-10);
             ellipse(point.x, point.y, 5, 5);
         }
 
@@ -24,29 +27,31 @@ public class clustering extends PApplet {
 
     @Override
     public void mouseClicked() {
-        listOfPoints.add(new GroupedVector(mouseX, mouseY, 0));
+        listOfPoints.add(new GroupedVector(mouseX, mouseY));
     }
 
     @Override
     public void keyPressed() {
+        currentGroup++;
         for(GroupedVector point: listOfPoints){
-            currentGroup++;
-            point.assignGroup(currentGroup);
-            for(GroupedVector comparedPoint: listOfPoints){
-                if(dist(point.x, point.y, comparedPoint.x, comparedPoint.y)<CLUSTERING_THRESHOLD){
-                    comparedPoint.assignGroup(currentGroup);
+            if(point.group==0){
+                point.assignGroup(currentGroup);
+                for(GroupedVector comparedPoint: listOfPoints){
+                    if(comparedPoint.group==0 && dist(point.x, point.y, comparedPoint.x, comparedPoint.y)<CLUSTERING_THRESHOLD){
+                        comparedPoint.assignGroup(currentGroup);
+                    }
                 }
             }
+            currentGroup++;
         }
     }
 
     class GroupedVector extends PVector{
 
-        private int group;
+        private int group = 0;
 
-        public GroupedVector(int mouseX, int mouseY, int i) {
+        public GroupedVector(int mouseX, int mouseY) {
             super(mouseX, mouseY);
-            group = i;
         }
 
         public void assignGroup(int group){
@@ -54,5 +59,5 @@ public class clustering extends PApplet {
         }
     }
 
-    public static final int CLUSTERING_THRESHOLD = 30;
+    public static final int CLUSTERING_THRESHOLD = 200;
 }
