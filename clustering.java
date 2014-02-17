@@ -1,3 +1,5 @@
+package clusteringsketch;
+
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -6,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by Francisco on 16/02/14.
  */
-public class clustering extends PApplet {
+public class clustering extends PApplet { // Class is in lower caps because it's a PApplet
     private ArrayList<GroupedVector> listOfPoints = new ArrayList<GroupedVector>();
     private int currentGroup = 0;
 
