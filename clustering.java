@@ -47,6 +47,18 @@ public class clustering extends PApplet { // Class is in lower caps because it's
             currentGroup++;
         }
     }
+    
+    public GroupedVector generateCenter(ArrayList<GroupedVector> list, int group){
+        int sumx = 0, sumy = 0, count = 0;
+        for(GroupedVector element: list){
+            if(element.getGroup() == group){
+                count++;
+                sumx += element.x;
+                sumy += element.y;
+            }
+        }
+        return new GroupedVector(sumx/count, sumy/count);
+    }
 
     class GroupedVector extends PVector{
 
