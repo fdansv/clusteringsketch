@@ -60,16 +60,24 @@ public class clustering extends PApplet { // Class is in lower caps because it's
         return new GroupedVector(sumx/count, sumy/count);
     }
 
-    class GroupedVector extends PVector{
+    class GroupedVector{
+
+        public final int y;
+        public final int x;
 
         private int group = 0;
 
         public GroupedVector(int mouseX, int mouseY) {
-            super(mouseX, mouseY);
+            this.x = mouseX;
+            this.y = mouseY;
         }
 
         public void assignGroup(int group){
             this.group = group;
+        }
+
+        public int getGroup() {
+            return group;
         }
     }
 
